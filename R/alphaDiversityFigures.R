@@ -1,7 +1,4 @@
-## To export all plots into a single pdf
-#pdf("./output/Alpha diversity figures.pdf")
-
-# Colors vector
+##
 qualitative_colors <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7", "#000000")
 
 ## Volumes from 1L to 100L
@@ -20,8 +17,9 @@ prok_diversity_metadata %>%
   theme(panel.grid.minor = element_blank(), 
         panel.grid.major.x = element_blank(),
         strip.background = element_blank(),
-        strip.text = element_text(color = "black", size = 12),
-        text = element_text(size = 12))+
+        legend.text = element_text(family = "Helvetica"),
+        strip.text = element_text(color = "black", size = 12, family = "Helvetica"),
+        text = element_text(size = 12, family = "Helvetica"))+
   scale_color_manual(values = qualitative_colors[c(3,5)])
 
 # Protists
@@ -29,7 +27,7 @@ prok_diversity_metadata %>%
 prot_diversity_metadata %>% 
   mutate(device = ifelse(device == "membrane", "Membrane", "Sterivex")) %>%
   filter(!is.na(size_fraction),!is.na(Sequencing_strategy),
-         effected_volume <= 1000) %>% 
+         effected_volume <= 100) %>% 
   ggplot(aes(effected_volume,Species_richness,col=device))+
   geom_jitter(width = 0.1, size = 3, alpha = 0.75)+
   facet_grid(facets = c("Sequencing_strategy","size_fraction"),scales = "free")+
@@ -40,8 +38,9 @@ prot_diversity_metadata %>%
   theme(panel.grid.minor = element_blank(), 
         panel.grid.major.x = element_blank(),
         strip.background = element_blank(),
-        strip.text = element_text(color = "black", size = 12),
-        text = element_text(size = 12))+
+        legend.text = element_text(family = "Helvetica"),
+        strip.text = element_text(color = "black", size = 12, family = "Helvetica"),
+        text = element_text(size = 12, family = "Helvetica"))+
   scale_color_manual(values = qualitative_colors[c(3,5)])
 
 ## Volumes from 1L to 1000L (Supplement)
@@ -59,8 +58,9 @@ prok_diversity_metadata %>%
   theme(panel.grid.minor = element_blank(), 
         panel.grid.major.x = element_blank(),
         strip.background = element_blank(),
-        strip.text = element_text(color = "black", size = 12),
-        text = element_text(size = 12))+
+        legend.text = element_text(family = "Helvetica"),
+        strip.text = element_text(color = "black", size = 12, family = "Helvetica"),
+        text = element_text(size = 12, family = "Helvetica"))+
   scale_color_manual(values = qualitative_colors[c(3,5)])
 
 # Protists
@@ -78,8 +78,9 @@ prot_diversity_metadata %>%
   theme(panel.grid.minor = element_blank(), 
         panel.grid.major.x = element_blank(),
         strip.background = element_blank(),
-        strip.text = element_text(color = "black", size = 12),
-        text = element_text(size = 12))+
+        legend.text = element_text(family = "Helvetica"),
+        strip.text = element_text(color = "black", size = 12, family = "Helvetica"),
+        text = element_text(size = 12, family = "Helvetica"))+
   scale_color_manual(values = qualitative_colors[c(3,5)])
 
 ## Filter type (10L, Whole water), sterivex vs membrane
@@ -104,17 +105,19 @@ prok_wilc_dev_10L_ww <-
 prokaryotes_membrane_vs_sterivex_10L_whole_water %>% 
   ggplot(aes(x = device,
              y = Species_richness))+
-  geom_boxplot()+
-  geom_jitter(aes(col = device), width = 0.1, size = 3, alpha = 0.75)+
+  geom_boxplot(size = 1)+
+  geom_jitter(aes(col = device), width = 0.1, size = 4, alpha = 0.75)+
   labs(x="Volume (L)",
        y="Number of OTU", col = NULL,
        title = "OTUs | Filter type | Prokaryotes | 16S and MetaG")+
   facet_wrap(facets = c("Sequencing_strategy"),scales= "free")+
- theme(panel.grid.minor = element_blank(), 
+  theme(panel.grid.minor = element_blank(), 
         panel.grid.major.x = element_blank(),
+        axis.ticks = element_blank(),
         strip.background = element_blank(),
-        strip.text = element_text(color = "black", size = 12),
-        text = element_text(size = 12))+
+        legend.text = element_text(family = "Helvetica"),
+        strip.text = element_text(color = "black", size = 12, family = "Helvetica"),
+        text = element_text(size = 12, family = "Helvetica"))+
   guides(col = "none")+
   scale_color_manual(values = qualitative_colors[c(3,5)])
   
@@ -148,17 +151,19 @@ prot_wilc_m_vs_st_10L_ww <-
 protist_membrane_vs_sterivex_10L_whole_water %>% 
   ggplot(aes(x = device,
              y = Species_richness))+
-  geom_boxplot()+
-  geom_jitter(aes(col = device), width = 0.1, size = 3, alpha = 0.75)+
+  geom_boxplot(size = 1)+
+  geom_jitter(aes(col = device), width = 0.1, size = 4, alpha = 0.75)+
   labs(x="Volume (L)",
        y="Number of OTU",
        title = "OTUs | Filter type | Protists | 18S and MetaG")+
 facet_wrap(facets = c("Sequencing_strategy"), scale= "free") + 
   theme(panel.grid.minor = element_blank(), 
         panel.grid.major.x = element_blank(),
+        axis.ticks = element_blank(),
         strip.background = element_blank(),
-        strip.text = element_text(color = "black", size = 12),
-        text = element_text(size = 12))+
+        legend.text = element_text(family = "Helvetica"),
+        strip.text = element_text(color = "black", size = 12, family = "Helvetica"),
+        text = element_text(size = 12, family = "Helvetica"))+
   guides(col = "none")+
   scale_color_manual(values = qualitative_colors[c(3,5)])
 
@@ -218,13 +223,12 @@ prokaryotes_wilcox_test_ww_vs_sf_10L_membrane <-
          Test = "Mann-Whitney",
          Taxonomic_group = "Prokaryotes")
 
-
 # Plot
 prokaryotes_ww_vs_sf_10L_membrane %>% 
   ggplot(aes(x = size_fraction,
              y = Species_richness))+
-  geom_boxplot()+
-  geom_jitter(aes(col = size_fraction), width = 0.1, size = 3, alpha = 0.75)+
+  geom_boxplot(size = 1)+
+  geom_jitter(aes(col = size_fraction), width = 0.1, size = 4, alpha = 0.75)+
   labs(x="Volume (L)",
        y="Number of OTU",
        title = "OTUs | WW vs size fraction | 10L | Prokaryotes | 16S and MetaG",
@@ -234,16 +238,18 @@ prokaryotes_ww_vs_sf_10L_membrane %>%
   stat_pvalue_manual(prokaryotes_dunn_ww_vs_sf_10L_membrane,
                      label = "p.adj.signif",
                      y.position = 550,
-                     hide.ns = TRUE) + 
+                     hide.ns = TRUE, 
+                     size = 10) + 
   theme(panel.grid.minor = element_blank(), 
         panel.grid.major.x = element_blank(),
         strip.background = element_blank(),
-        strip.text = element_text(color = "black", size = 12),
-        text = element_text(size = 12))+
+        axis.ticks = element_blank(),
+        legend.text = element_text(family = "Helvetica"),
+        strip.text = element_text(color = "black", size = 12, family = "Helvetica"),
+        text = element_text(size = 12, family = "Helvetica"))+
   guides(col = "none")+
   scale_color_manual(values = qualitative_colors[c(3,5,7)])
   
-
 # Protists, whole water vs size fractions, 10L
 protist_ww_sf_10L_membrane <- 
   prot_diversity_metadata %>% 
@@ -264,17 +270,19 @@ protist_ww_sf_10L_membrane_kruskall_test <-
 #
 protist_ww_sf_10L_membrane %>% 
   ggplot(aes(x = size_fraction, y = Species_richness)) +
-  geom_boxplot()+
-  geom_jitter(aes(col = size_fraction), width = 0.1, size = 3, alpha = 0.75)+
+  geom_boxplot(size = 1)+
+  geom_jitter(aes(col = size_fraction), width = 0.1, size = 4, alpha = 0.75)+
   labs(x="Volume (L)",
        y="Number of OTU",
        title = "OTUs | WW vs size fraction | 10L | Protists | 18S and MetaG") + #,
- facet_wrap(facets = c("Sequencing_strategy"), scale= "free") +
+  facet_wrap(facets = c("Sequencing_strategy"), scale= "free") +
   theme(panel.grid.minor = element_blank(), 
         panel.grid.major.x = element_blank(),
+        axis.ticks = element_blank(),
         strip.background = element_blank(),
-        strip.text = element_text(color = "black", size = 12),
-        text = element_text(size = 12))+
+        legend.text = element_text(family = "Helvetica"),
+        strip.text = element_text(color = "black", size = 12, family = "Helvetica"),
+        text = element_text(size = 12, family = "Helvetica"))+
   guides(col = "none")+
   scale_color_manual(values = qualitative_colors[c(3,5,7)])
 
@@ -320,26 +328,27 @@ prokaryotes_size_fractions_100L_membrane_dunn_test_16S$xmax <- c(2,3,3)
 prokaryotes_size_fractions_100L_membrane %>% 
   filter(Sequencing_strategy == "MetaB16SV4V5") %>% 
   ggplot(aes(x = size_fraction, y = Species_richness))+
-  geom_boxplot(outlier.shape = "cross")+
-  geom_jitter(aes(col = size_fraction), width = 0.1, size = 3, alpha =0.75)+
+  geom_boxplot(outlier.shape = "cross", size = 1)+
+  geom_jitter(aes(col = size_fraction), width = 0.1, size = 4, alpha =0.75)+
   labs(x="Volume (L)",
        y="Number of OTU",
        title = "OTUs | Size fraction | 100L | Prokaryotes | 16S",
        subtitle = get_test_label(prokaryotes_size_fractions_100L_membrane_kruskal_test_16S, type = "text", detailed = TRUE),
        caption = get_pwc_label(prokaryotes_size_fractions_100L_membrane_dunn_test_16S, type = "expression"))+
-  theme(axis.text.x = element_text(angle=90))+
   stat_pvalue_manual(prokaryotes_size_fractions_100L_membrane_dunn_test_16S,
                      label = "p.adj.signif",
                      y.position = 650,
-                     hide.ns = TRUE) +
+                     hide.ns = TRUE, 
+                     size = 10) +
   theme(panel.grid.minor = element_blank(), 
         panel.grid.major.x = element_blank(),
+        axis.ticks = element_blank(),
         strip.background = element_blank(),
-        strip.text = element_text(color = "black", size = 12),
-        text = element_text(size = 12))+
+        legend.text = element_text(family = "Helvetica"),
+        strip.text = element_text(color = "black", size = 12, family = "Helvetica"),
+        text = element_text(size = 12, family = "Helvetica"))+
   guides(col = "none")+
   scale_color_manual(values = qualitative_colors[c(3,5,7)])
-  
 
 ## Some quick metrics
 prokaryotes_size_fractions_100L_membrane %>% 
@@ -365,24 +374,25 @@ prokaryotes_size_fractions_100L_membrane_wilcox_metagenomes$xmax <- 2
 # Plot
 prokaryotes_size_fractions_100L_membrane %>% 
   filter(Sequencing_strategy == "MetaG") %>% 
-  ggplot(aes(x = size_fraction,
-             y = Species_richness))+
-  geom_boxplot(outlier.shape = "cross")+
-  geom_jitter(aes(col = size_fraction), width = 0.1, size = 3, alpha = 0.75)+
+  ggplot(aes(x = size_fraction, y = Species_richness))+
+  geom_boxplot(outlier.shape = "cross", size = 1)+
+  geom_jitter(aes(col = size_fraction), width = 0.1, size = 4, alpha = 0.75)+
   labs(x="Volume (L)",
        y="Number of OTU",
        title = "OTUs | size fractions | Prokaryotes | Metagenome",
        subtitle = get_test_label(prokaryotes_size_fractions_100L_membrane_wilcox_metagenomes, type = "text", detailed = TRUE))+
-  theme(axis.text.x = element_text(angle=90))+
   stat_pvalue_manual(prokaryotes_size_fractions_100L_membrane_wilcox_metagenomes,
                      label = "p.adj.signif",
                      y.position = 230,
-                     hide.ns = FALSE) +
+                     hide.ns = FALSE, 
+                     size = 10) +
   theme(panel.grid.minor = element_blank(), 
         panel.grid.major.x = element_blank(),
         strip.background = element_blank(),
-        strip.text = element_text(color = "black", size = 12),
-        text = element_text(size = 12))+
+        axis.ticks = element_blank(),
+        legend.text = element_text(family = "Helvetica"),
+        strip.text = element_text(color = "black", size = 12, family = "Helvetica"),
+        text = element_text(size = 12, family = "Helvetica"))+
   guides(col = "none")+
   scale_color_manual(values = qualitative_colors[c(3,5,7)])
 
@@ -415,18 +425,19 @@ protist_size_fractions_100L_membrane_dunn <-
 # Plot
 protist_size_fractions_100L_membrane %>% 
   ggplot(aes(x = size_fraction, y = Species_richness)) +
-  geom_boxplot(outlier.shape = "cross") +
-  geom_jitter(aes(color = size_fraction), width = 0.1, size = 3, alpha = 0.75) +
+  geom_boxplot(outlier.shape = "cross", size = 1) +
+  geom_jitter(aes(color = size_fraction), width = 0.1, size = 4, alpha = 0.75) +
   labs(x="Volume (L)",
        y="Number of OTU",
        title = "OTUs | Size fraction | 100L | Protists | 18S and MetaG") + #,
- theme(axis.text.x = element_text(angle=90)) +
   facet_wrap(facets = c("Sequencing_strategy"), scale="free") + 
   theme(panel.grid.minor = element_blank(), 
         panel.grid.major.x = element_blank(),
         strip.background = element_blank(),
-        strip.text = element_text(color = "black", size = 12),
-        text = element_text(size = 12))+
+        axis.ticks = element_blank(),
+        legend.text = element_text(family = "Helvetica"),
+        strip.text = element_text(color = "black", size = 12, family = "Helvetica"),
+        text = element_text(size = 12, family = "Helvetica"))+
   guides(col = "none")+
   scale_color_manual(values = qualitative_colors[c(3,5,7)])
 
@@ -446,8 +457,8 @@ prok_diversity_metadata %>%
   filter(device == "sterivex", planned_volume != "1L") %>% 
   ggplot(aes(x = as.factor(effected_volume),
              y = Species_richness))+
-  geom_boxplot(outlier.shape = "cross")+
-  geom_jitter(aes(col = as.factor(effected_volume)), width = 0.1, size = 3, alpha = 0.75)+
+  geom_boxplot(outlier.shape = "cross", size = 1)+
+  geom_jitter(aes(col = as.factor(effected_volume)), width = 0.1, size = 4, alpha = 0.75)+
   labs(x="Volume (L)",
        y="Number of OTU",
        title = "OTUs | 2.5L pooled vs 10L | Sterivex | Prokaryotes | 16S and MetaG")+
@@ -455,8 +466,10 @@ prok_diversity_metadata %>%
   theme(panel.grid.minor = element_blank(), 
         panel.grid.major.x = element_blank(),
         strip.background = element_blank(),
-        strip.text = element_text(color = "black", size = 12),
-        text = element_text(size = 12))+
+        axis.ticks = element_blank(),
+        legend.text = element_text(family = "Helvetica"),
+        strip.text = element_text(color = "black", size = 12, family = "Helvetica"),
+        text = element_text(size = 12, family = "Helvetica"))+
   guides(col = "none")+
   scale_color_manual(values = qualitative_colors[c(3,5)])
 
@@ -491,8 +504,8 @@ protist_2.5_vs_10_st_ww %>%
 # OTUs
 protist_2.5_vs_10_st_ww %>% 
   ggplot(aes(x = as.factor(planned_volume), y = Species_richness))+
-  geom_boxplot()+
-  geom_jitter(aes(col = as.factor(planned_volume)), width = 0.1, size = 3, alpha = 0.75)+
+  geom_boxplot(size = 1)+
+  geom_jitter(aes(col = as.factor(planned_volume)), width = 0.1, size = 4, alpha = 0.75)+
   labs(x="Volume (L)",
        y="Number of OTU",
        title = "OTUs | 2.5L pooled vs 10L | Sterivex | Protists | 18S and MetaG") + #,
@@ -500,11 +513,10 @@ protist_2.5_vs_10_st_ww %>%
   theme(panel.grid.minor = element_blank(), 
         panel.grid.major.x = element_blank(),
         strip.background = element_blank(),
-        strip.text = element_text(color = "black", size = 12),
-        text = element_text(size = 12))+
+        legend.text = element_text(family = "Helvetica"),
+        strip.text = element_text(color = "black", size = 12, family = "Helvetica"),
+        text = element_text(size = 12, family = "Helvetica"))+
   guides(col = "none")+
   scale_color_manual(values = qualitative_colors[c(3,5)])
   
-## If pdf option was used
-#dev.off()
 
