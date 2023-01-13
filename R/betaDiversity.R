@@ -109,14 +109,15 @@ env_metagenome_prot <- env_metagenome_prot %>%
              effected_volume == 1000 ~ "black")) 
 
 ## Plot Figures ##
-#pdf("./output/Betadiversity figures.pdf")
 # Prokaryotes, MetaB16S
 plot(mds_prok_16S,
      display = "sites", type="p", main = "Prokaryotes, MetaB16SV4V5")
 points(mds_prok_16S,
        display = "sites",
-       bg=env_16S$col_volume,
-       pch=21,col="grey")
+       bg = env_16S$col_volume,
+       pch = 21, 
+       col = "grey", 
+       cex = 2)
 with(env_16S,
      ordiellipse(mds_prok_16S,
                  size_fraction,kind="se",conf=0.95,col="grey"))
@@ -132,8 +133,10 @@ plot(mds_prok_metagenome,
      display = "sites", type="p", main = "Prokaryotes, MetaG")
 points(mds_prok_metagenome,
        display = "sites",
-       bg=env_metagenome_prok$col_volume,
-       pch=21,col="grey")
+       bg = env_metagenome_prok$col_volume,
+       pch = 21, 
+       col = "grey", 
+       cex = 2)
 with(env_metagenome_prok,
      ordiellipse(mds_prok_metagenome,
                  size_fraction,kind="se",conf=0.95,col="grey"))
@@ -149,8 +152,10 @@ plot(mds_prot_18S,
      display = "sites", type="p", main = "Protists, MetaB18SV9")
 points(mds_prot_18S,
        display = "sites",
-       bg=env_18S$col_volume,
-       pch=21,col="grey")
+       bg = env_18S$col_volume,
+       pch = 21, 
+       col = "grey", 
+       cex = 2)
 with(env_18S,
      ordiellipse(mds_prot_18S,
                  size_fraction,kind="se",conf=0.95,col="grey"))
@@ -166,8 +171,10 @@ plot(mds_prot_metagenome,
      display = "sites", type="p", main = "Protists, MetaG")
 points(mds_prot_metagenome,
        display = "sites",
-       bg=env_metagenome_prot$col_volume,
-       pch=21,col="grey")
+       bg = env_metagenome_prot$col_volume,
+       pch = 21, 
+       col = "grey", 
+       cex = 2)
 with(env_metagenome_prot,
      ordiellipse(mds_prot_metagenome,
                  size_fraction,kind="se",conf=0.95,col="grey"))
@@ -177,9 +184,6 @@ with(env_metagenome_prot,
 with(env_metagenome_prot,
      ordispider(mds_prot_metagenome,
                 size_fraction,label = T,col="grey"))
-
-#dev.off()
-
 
 ## Statistical tests ##
 
