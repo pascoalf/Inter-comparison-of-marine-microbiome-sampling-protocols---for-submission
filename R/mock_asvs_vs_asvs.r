@@ -1,6 +1,8 @@
 ### mock analysis --> ASV version
-## just stag mock
 
+# Load necessary packages
+packages <- c("data.table","readxl","tidyr","ggplot2","dplyr", "dada2", "purrr")
+lapply(packages,library,character.only=TRUE)
 
 ## Get OTU tables
 #load table with OTUs from MGnify v5
@@ -62,7 +64,7 @@ mock_stag_16S <- metadata %>%
 mock_stag_16S$run_accession #I got the fastq file with this ID mannually from ENA, but it could be done more automatically
 
 #get path
-stag_path <- "./sequences/stag"
+stag_path <- "./data/sequences/stag"
 
 # get file names
 stag_fnFs <- paste("./data/sequences/stag/",list.files(stag_path)[1],sep="")
@@ -72,7 +74,7 @@ stag_fnRs <-  paste("./data/sequences/stag/",list.files(stag_path)[2],sep="")
 stag_sample.names <- "stag_mock_observed"
 
 # Make quality profile to check best trimming
-purrr::map(list(stag_fnFs,stag_fnRs),plotQualityProfile)
+map(list(stag_fnFs,stag_fnRs),plotQualityProfile)
 
 # Place filtered files in filtered/ subdirectory
 stag_filtFs <- file.path(stag_path, "filtered", paste0(stag_sample.names, "_F_filt.fastq.gz"))
@@ -109,10 +111,10 @@ stag_seqtab.nochim <- removeBimeraDenovo(stag_seqtab, method="consensus", multit
 stag_mock_asvs <- colnames(stag_seqtab.nochim)
 
 # Taxonomic assignment with exact matching against the custom database
-stag_species <- assignSpecies(stag_seqtab.nochim, "16_custom_reference")
+stag_species <- assignSpecies(stag_seqtab.nochim, "./data/16_custom_reference")
 
 # get expected values from Parada et al.
-#expected_abundance <- read.table("./mock_expected.txt",sep = "\t",header=T) #includes stag, even and Parada et al results.
+expected_abundance <- read.table("./data/mock_expected.txt",sep = "\t",header=T) #includes stag, even and Parada et al results.
 
 
 #prepare abundance table
@@ -150,9 +152,9 @@ stag_asv_observed_and_expected %>%
   ggplot(aes(x=Staggered_expected,y=Observed_abundance_ra))+
   geom_point()+
   geom_smooth(method="lm",se=F)+
-  stat_regline_equation(label.y=14,aes(label = ..eq.label..))+
-  stat_regline_equation(label.y=13,aes(label = ..rr.label..))+
-  theme_pubclean()+
+  ggpubr::stat_regline_equation(label.y=14,aes(label = ..eq.label..))+
+  ggpubr::stat_regline_equation(label.y=13,aes(label = ..rr.label..))+
+  ggpubr::theme_pubclean()+
   labs(title="Observed abundance vs Staggered expected",
        x = "Staggered expected abundance (%)",
        y = "Observed abundance (%)")
@@ -164,11 +166,11 @@ stag_asv_observed_and_expected %>%
   ggplot(aes(x=Staggered_expected,y=Observed_abundance_ra))+
   geom_point()+
   geom_smooth(method="lm",se=F)+
-  stat_regline_equation(label.y=14,aes(label = ..eq.label..))+
-  stat_regline_equation(label.y=13,aes(label = ..rr.label..))+
+  ggpubr::stat_regline_equation(label.y=14,aes(label = ..eq.label..))+
+  ggpubr::stat_regline_equation(label.y=13,aes(label = ..rr.label..))+
   scale_y_log10()+
   scale_x_log10()+
-  theme_pubclean()+
+  ggpubr::theme_pubclean()+
   labs(title="Observed abundance vs Staggered expected (Log10 transformed)",
        x = "Staggered expected abundance (%)",
        y = "Observed abundance (%)")
@@ -179,7 +181,7 @@ stag_asv_observed_and_expected %>%
   ggplot(aes(x=reorder(Common_name,-Relative_abundance),y=Relative_abundance,fill=Sample))+
   geom_col(position="dodge",col="black")+
   coord_flip()+
-  theme_pubclean()+
+  ggpubr::theme_pubclean()+
   labs(title="Expected vs Observed abundance, STAG mock \n with NA assignments",
        x= "Common name",
        y="Relative abundance",
@@ -199,7 +201,7 @@ stag_asv_observed_and_expected %>%
   ggplot(aes(x=reorder(Common_name,-Relative_abundance),y=Relative_abundance,fill=Sample))+
   geom_col(position="dodge",col="black")+
   coord_flip()+
-  theme_pubclean()+
+  ggpubr::theme_pubclean()+
   labs(title="Expected vs Observed abundance, STAG mock \n removed NA assignments",
        x= "Colony name",
        y="Relative abundance (%)",
@@ -216,7 +218,7 @@ stag_asv_observed_and_expected %>%
   ggplot(aes(x=reorder(Common_name,-Relative_abundance),y=Relative_abundance,fill=Sample))+
   geom_col(position="dodge",col="black")+
   coord_flip()+
-  theme_pubclean()+
+  ggpubr::theme_pubclean()+
   labs(title="Expected vs Observed abundance, STAG mock \n removed NA assignments",
        x= "Colony name",
        y="Relative abundance (%) (Log10 transformed)",
@@ -234,9 +236,9 @@ stag_asv_observed_and_expected %>%
   geom_smooth(method="lm",se=F)+
   geom_point()+
   geom_abline(lty=2)+
-  stat_regline_equation(label.x=27,label.y=25,aes(label = ..eq.label..))+
-  stat_regline_equation(label.x=27,label.y=24,aes(label = ..rr.label..))+
-  theme_pubclean()
+  ggpubr::stat_regline_equation(label.x=27,label.y=25,aes(label = ..eq.label..))+
+  ggpubr::stat_regline_equation(label.x=27,label.y=24,aes(label = ..rr.label..))+
+  ggpubr::theme_pubclean()
 
 ## end ##
 
