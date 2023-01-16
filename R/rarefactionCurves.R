@@ -137,4 +137,36 @@ with(env_all_metagenomes,
                ylab  = "Number of OTU",
                lwd = 2,
                main = "MetaG, Protists"))
+## Volume
+par(mfrow = c(2,2))
+# 16S
+with(env_all_prok_16S, 
+     rarecurve(t(prokaryotes_16S_clean),
+               col = vol_col, 
+               step = 1000, 
+               label = FALSE,
+               xlab = "Sequences",
+               ylab  = "OTUs",
+               lwd=2,
+               main = "A MetaB16SV4V5"))
 
+# 18S
+with(env_all_prot_18S, 
+     rarecurve(t(protists_18S_clean),
+               col = vol_col, step = 1000, label = FALSE,
+               xlab = "Sequences",ylab  = "OTUs",lwd=2,
+               main = "B MetaB18SV9"))
+
+# MetaG, Prokaryotes
+with(env_all_metagenomes, 
+     rarecurve(t(prokaryotes_metagenome_clean),
+               col = vol_col, step = 100, label = FALSE,
+               xlab = "Sequences",ylab  = "OTUs",lwd=2,
+               main = "C MetaG, Prokaryotes"))
+
+# MetaG, Protists
+with(env_all_metagenomes, 
+     rarecurve(t(protists_metagenome_clean),
+               col = vol_col, step = 100, label = FALSE,
+               xlab = "Sequences",ylab  = "OTUs",lwd=2,
+               main = "D MetaG, Protists")) 

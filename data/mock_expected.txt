@@ -1,0 +1,28 @@
+Common_name	Staggered_expected	Observed_Parada	Observed_EVEN	Colony_name	Colony_name_upper_case
+SAR11 Surface 1 (Alpha)	31.5	24.7	7	SAR11.a	SAR11.A
+OCS155_a (Actino) 	15.8	14.7	7	OCS155.a	OCS155.A
+OCS155_b (Actino)	09.01	10.5	NA	OCS155.z	OCS155.Z
+Thaumarchaea MGI_a	09.01	13.7	8	MGI.a	MGI.A
+Prochlorococcus	6.76	5.41	7	Prochlorococcus.a	PROCHLOROCOCCUS.A
+SAR86 (gamma)	4.5	3.16	6	SAR86.a	SAR86.A
+AEGEAN-169 (Alpha)	2.25	2.57	NA	AEGEAN-169.a	AEGEAN-169.A
+SAR116_a (Alpha)	2.25	2.37	8	SAR116.a	SAR116.A
+Euryarchaea MGII	1.8	2.23	9	MGII.a	MGII.A
+Flavobacteria	1.8	2.74	14	NS2b.a	NS2B.A
+Planctomyces	1.8	2.55	13	Planctomyces.a	PLANCTOMYCES.A
+SAR116_b (Alpha)	1.8	2.29	NA	SAR116.b	SAR116.B
+SAR202_a (Chloroflexi)	1.8	2.61	12	SAR202.a	SAR202.A
+Marine Group A (aka SAR406)	1.35	1.4	9	SAR406.a	SAR406.A
+Flavobacteria_Formosa	0.901	1.65	NA	Formosa.a	FORMOSA.A
+Flavobacteria_NS9	0.901	1.17	NA	NS9.a	NS9.A
+Pseudospirillum (Gamma)	0.901	0.831	NA	Pseudospirillum.a	PSEUDOSPIRILLUM.A
+SAR86_b (Gamma)	0.901	0.56	NA	SAR86.b	SAR86.B
+SAR92 (Gamma)	0.901	0.645	NA	SAR92.a	SAR92.A
+Thaumarchaea MGI_b	0.901	0.823	NA	MGI.b	MGI.B
+Verrucomicrobia	0.901	0.83	NA	Verrumicrobia.a	VERRUMICROBIA.A
+Rhodobacteriaceae (Alpha)	0.676	0.493	NA	Rhodobacteraceae.a	RHODOBACTERACEAE.A
+SAR86_c (Gamma)	0.676	0.449	NA	SAR86.c	SAR86.C
+Flavobacteria_NS5	0.45	0.565	NA	NS5.a	NS5.A
+SAR86_d (Gamma)	0.22	0.137	NA	SAR86.d	SAR86.D
+SAR116_c (Alpha)	0.113	0.094	NA	SAR116.c	SAR116.C
+SAR202_b (Chloroflexi)	0.113	0.039	NA	SAR202.b	SAR202.B
