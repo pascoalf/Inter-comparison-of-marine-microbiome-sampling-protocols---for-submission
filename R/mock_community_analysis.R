@@ -682,5 +682,87 @@ even_prok_miseq_asv_observed_and_expected %>%
 
 dev.off()
 
+###
+### Arrange
 
+#
+qualitative_colors <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7", "#000000")
+
+gridExtra::grid.arrange(
+stag_all_combined %>%
+  rename(HiSeq = "EMOSE_STAG_MOCK.x",
+         MiSeq = "EMOSE_STAG_MOCK.y") %>%
+  gather(key="Sequencing_machine",
+         value="EMOSE_STAG_MOCK",
+         HiSeq,MiSeq) %>%
+  ggplot(aes(Staggered_expected,EMOSE_STAG_MOCK,col=Sequencing_machine))+
+  geom_point()+
+  geom_smooth(se=FALSE,method="lm")+
+  geom_abline(lty=2)+
+  stat_regline_equation(label.x=26,label.y=c(14,18),aes(label = ..eq.label..))+
+  stat_regline_equation(label.x=26,label.y=c(12,16),aes(label = ..rr.label..))+
+  labs(title="a",
+       x="Expected relative abundance (%)",
+       y="Observed relative abundance (%)",
+       col="Sequencing machine:")+
+  scale_color_manual(values = qualitative_colors[c(1,2)])+
+  theme_pubclean()+
+  theme(text = element_text(size = 12, family = "Helvetica"))
+
+,
+
+stag_all_combined %>%
+  rename(HiSeq = "EMOSE_STAG_MOCK.x",
+         MiSeq = "EMOSE_STAG_MOCK.y",
+         Expected = "Staggered_expected") %>%
+  gather(key="Sample",
+         value="Relative_abundance",
+         HiSeq, MiSeq, Expected) %>%
+  ggplot(aes(x=reorder(Common_name,-Relative_abundance),y=Relative_abundance,fill=Sample))+
+  geom_col(position="dodge") + #,col="black")+
+  coord_flip()+
+  scale_fill_manual(values = qualitative_colors[c(3, 1, 2)])+
+  theme_pubclean()+
+  labs(title="b",
+       y="Relative abundance (%)",
+       x="Colony name",
+       fill="")+
+  theme(text = element_text(size = 12, family = "Helvetica"))
+
+,
+
+stag_all_combined %>%
+  rename(HiSeq = "EMOSE_STAG_MOCK.x",
+         MiSeq = "EMOSE_STAG_MOCK.y",
+         Expected = "Staggered_expected") %>%
+  gather(key="Sample",
+         value="Relative_abundance",
+         HiSeq,MiSeq,Expected) %>%
+  ggplot(aes(x=reorder(Common_name,-Relative_abundance),y=Relative_abundance,fill=Sample))+
+  geom_col(position="dodge") + #,col="black")+
+  coord_flip()+
+  scale_fill_manual(values = qualitative_colors[c(3, 1, 2)])+
+  theme_pubclean()+
+  labs(title="c",
+       y="Relative abundance (%) in Log10 scale",
+       x="Colony name",
+       fill="")+
+  scale_y_log10() +
+  theme(text = element_text(size = 12, family = "Helvetica"))
+
+,
+
+stag_all_combined %>%
+  ggplot(aes(Observed_abundance.x*100/sum(Observed_abundance.x),Observed_abundance.y*100/sum(Observed_abundance.y)))+
+  geom_point()+
+  geom_smooth(se=FALSE,method="lm")+
+  theme_pubclean()+
+  geom_abline(lty=2)+
+  stat_regline_equation(label.x=24,label.y=c(16,19),aes(label = ..eq.label..))+
+  stat_regline_equation(label.x=24,label.y=c(14,17),aes(label = ..rr.label..))+
+  labs(x="HiSeq 2500 Rapid (relative abundance %)",
+       y="MiSeq (relative abundance %)",
+       title="d")+
+  theme(text = element_text(size = 12, family = "Helvetiva"))
+)
 
