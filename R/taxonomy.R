@@ -120,7 +120,7 @@ col_tax_plot <- function(x, title){
     scale_fill_manual(values = qualitative_colors[c(1,3,5,7)])+
     labs(fill = "Pore size (\U00B5m):",
          x = "Volume (L)", 
-         y = "Number of OTU",
+         y = "Number of OTUs",
          title = title)+
     scale_y_continuous(labels=label_number(accuracy = 1))+
     theme(panel.grid.minor = element_blank(),

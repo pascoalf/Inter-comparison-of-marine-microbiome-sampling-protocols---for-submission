@@ -43,7 +43,7 @@ prot_diversity_metadata %>%
         text = element_text(size = 12, family = "Helvetica"))+
   scale_color_manual(values = qualitative_colors[c(3,5)])
 
-## Volumes from 1L to 1000L (Supplement)
+## Volumes from 1L to 1000L
 # Number of OTU
 prok_diversity_metadata %>% 
   mutate(device = ifelse(device == "membrane", "Membrane", "Sterivex")) %>%

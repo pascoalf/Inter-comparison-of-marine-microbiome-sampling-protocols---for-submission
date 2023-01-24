@@ -138,7 +138,8 @@ protist_meta <- emose_metagenomes %>%
 ## Taxonomy curation
 ## Protists
 # 18S, curated by Roberta:
-curated_taxonomy_protist_18S <- read_xlsx("./data/euka_emose_roberta.xlsx",sheet = 2)
+curated_taxonomy_protist_18S <- 
+  read_xlsx("./data/euka_emose_roberta.xlsx",sheet = 2)
 
 # Remove NAs from Fake rank
 curated_taxonomy_protist_18S_remove_nas <-  
