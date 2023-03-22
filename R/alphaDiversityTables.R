@@ -68,7 +68,7 @@ prokaryotes_16S_clean_to_rarefy <-
   prokaryotes_16S_clean %>% select(samples_of_prokaryotes_16S_to_rarefy$Sample)
 
 # Remove singletons
-prokaryotes_16S_clean_to_rarefy[prokaryotes_16S_clean_to_rarefy==1,] <- 0
+prokaryotes_16S_clean_to_rarefy[prokaryotes_16S_clean_to_rarefy==1, ] <- 0
 
 # prepare table for rarefaction
 t_prok_16_to_rarefy <- t(prokaryotes_16S_clean_to_rarefy)
