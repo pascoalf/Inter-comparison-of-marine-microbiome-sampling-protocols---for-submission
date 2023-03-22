@@ -68,7 +68,7 @@ prokaryotes_16S_clean_to_rarefy <-
   prokaryotes_16S_clean %>% select(samples_of_prokaryotes_16S_to_rarefy$Sample)
 
 # Remove singletons
-prokaryotes_16S_clean_to_rarefy[prokaryotes_16S_clean_to_rarefy==1, ] <- 0
+prokaryotes_16S_clean_to_rarefy[prokaryotes_16S_clean_to_rarefy==1] <- 0
 
 # prepare table for rarefaction
 t_prok_16_to_rarefy <- t(prokaryotes_16S_clean_to_rarefy)
@@ -106,9 +106,9 @@ prokaryotes_metagenome_clean <-
 
 prokaryotes_metagenomes_diversity_not_rarefied <- 
   tibble(Sample = metagenome_samples$run_accession,
-         Species_richness = sapply(prokaryotes_metagenome_clean,specnumber),
-         Shannon_index = sapply(prokaryotes_metagenome_clean,diversity,index="shannon"),
-         Reads = sapply(prokaryotes_metagenome_clean,sum),
+         Species_richness = sapply(select(prokaryotes_metagenome_clean, !FAKE_rank), specnumber),
+         Shannon_index = sapply(select(prokaryotes_metagenome_clean, !FAKE_rank), diversity, index = "shannon"),
+         Reads = sapply(select(prokaryotes_metagenome_clean, !FAKE_rank), sum),
          Taxonomic_group = "Prokaryotic")
 
 # Taxonomy of each OTU
@@ -121,7 +121,7 @@ prokaryotes_metagenome_clean$FAKE_rank <- NULL
 # Rarefaction of prokaryotes, metagenomes
 prok_metagenome_reads <- 
   tibble(Sample = metagenome_samples$run_accession,
-         Reads = sapply(prokaryotes_metagenome_clean[,-"FAKE_rank"],sum))
+         Reads = sapply(prokaryotes_metagenome_clean, sum))
 
 # View total number of reads
 prok_metagenome_reads %>% 
