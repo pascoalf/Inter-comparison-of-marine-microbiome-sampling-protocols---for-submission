@@ -81,17 +81,18 @@ mock_stag_16S_prok_hiseq <- metadata %>%
 mock_stag_16S_prok_hiseq$run_accession #I got the fastq file with this ID mannually from ENA, but it could be done more automatically
 
 #get path
-stag_prok_hiseq_path <- "./sequences/stag"
+stag_prok_hiseq_path <- "./data"
 
 # get file names
-stag_prok_hiseq_fnFs <- paste("./sequences/stag/",mock_stag_16S_prok_hiseq$run_accession,"_1.fastq",sep="")
-stag_prok_hiseq_fnRs <-  paste("./sequences/stag/",mock_stag_16S_prok_hiseq$run_accession,"_2.fastq",sep="")
+stag_prok_hiseq_fnFs <- paste("./data/", mock_stag_16S_prok_hiseq$run_accession, "_1.fastq.gz",sep="")
+stag_prok_hiseq_fnRs <-  paste("./data/", mock_stag_16S_prok_hiseq$run_accession, "_2.fastq.gz",sep="")
 
 # Sample name
 stag_prok_hiseq_sample.names <- "stag_mock_prok_hiseq_observed"
 
 # Make quality profile to check best trimming
 #purrr::map(list(stag_prok_hiseq_fnFs,stag_prok_hiseq_fnRs),plotQualityProfile)
+
 
 # Place filtered files in filtered/ subdirectory
 stag_prok_hiseq_filtFs <- file.path(stag_prok_hiseq_path, "filtered", paste0(stag_prok_hiseq_sample.names, "_F_filt.fastq.gz"))
