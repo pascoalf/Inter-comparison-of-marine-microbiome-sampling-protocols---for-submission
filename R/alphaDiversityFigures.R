@@ -7,8 +7,9 @@ qualitative_colors <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "
 prok_diversity_metadata %>%
   mutate(device = ifelse(device == "membrane", "Membrane", "Sterivex")) %>% 
   filter(effected_volume <= 100) %>%
-  ggplot(aes(effected_volume,Species_richness,col=device))+
-  geom_jitter(width = 0.1, size = 3, alpha = 0.75)+
+  ggplot(aes(effected_volume, Species_richness, col = device, label = replica)) +
+  geom_text(nudge_y = 1.5, nudge_x = 0.5, size = 2.5, col = "black") + 
+  geom_jitter(width = 0.1, size = 2, alpha = 0.75) +
   facet_grid(facets = c("Sequencing_strategy","size_fraction"),scales = "free")+
   labs(x="Volume (L)",
        y="Number of OTU",
@@ -106,7 +107,7 @@ prokaryotes_membrane_vs_sterivex_10L_whole_water %>%
   ggplot(aes(x = device,
              y = Species_richness))+
   geom_boxplot(size = 1)+
-  geom_jitter(aes(col = device), width = 0.1, size = 4, alpha = 0.75)+
+  geom_jitter(aes(col = device, shape = replica), width = 0.1, size = 4, alpha = 0.75)+
   labs(x="Volume (L)",
        y="Number of OTU", col = NULL,
        title = "OTUs | Filter type | Prokaryotes | 16S and MetaG")+
@@ -228,7 +229,7 @@ prokaryotes_ww_vs_sf_10L_membrane %>%
   ggplot(aes(x = size_fraction,
              y = Species_richness))+
   geom_boxplot(size = 1)+
-  geom_jitter(aes(col = size_fraction), width = 0.1, size = 4, alpha = 0.75)+
+  geom_jitter(aes(col = size_fraction, shape = replica), width = 0.1, size = 4, alpha = 0.75)+
   labs(x="Volume (L)",
        y="Number of OTU",
        title = "OTUs | WW vs size fraction | 10L | Prokaryotes | 16S and MetaG",
