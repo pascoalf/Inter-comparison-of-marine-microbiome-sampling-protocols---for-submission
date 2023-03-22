@@ -100,7 +100,10 @@ names(stag_prok_hiseq_filtFs) <- stag_prok_hiseq_sample.names
 names(stag_prok_hiseq_filtRs) <- stag_prok_hiseq_sample.names
 
 # filter and trim
-stag_prok_hiseq_out <- filterAndTrim(stag_prok_hiseq_fnFs, stag_prok_hiseq_filtFs, stag_prok_hiseq_fnRs, stag_prok_hiseq_filtRs, 
+stag_prok_hiseq_out <- filterAndTrim(stag_prok_hiseq_fnFs,
+                                     stag_prok_hiseq_filtFs, 
+                                     stag_prok_hiseq_fnRs, 
+                                     stag_prok_hiseq_filtRs, 
                           truncLen=c(240,240), #trimming
                           maxN=0, maxEE=c(2,2), truncQ=2, rm.phix=TRUE,
                           compress=TRUE, multithread=TRUE,
