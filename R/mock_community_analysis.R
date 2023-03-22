@@ -34,7 +34,7 @@ ena_reference <- ena_reference %>%
 ## Get detailed information on each sample
 ## from Supplementary Table S1
 sample_registry <- mapply(FUN = read_excel,
-                          path="../Supplementary Tables/Supplementary Table S1.xlsx",
+                          path="./data/Supplementary Table S1.xlsx",
                           sheet = c("EMOSE_SAMPLES_METHODS","SEQUENCING RUNS"),
                           col_names=F)
 
