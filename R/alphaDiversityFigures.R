@@ -1,6 +1,4 @@
 ##
-qualitative_colors <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7", "#000000")
-
 ## Volumes from 1L to 100L
 # Prokaryotes
 # Number of OTU
@@ -8,7 +6,7 @@ prok_diversity_metadata %>%
   mutate(device = ifelse(device == "membrane", "Membrane", "Sterivex")) %>% 
   filter(effected_volume <= 100) %>%
   ggplot(aes(effected_volume, Species_richness, col = device, label = replica)) +
-  geom_text(nudge_y = 1.5, nudge_x = 0.5, size = 2.5, col = "black") + 
+  geom_text_repel(size = 2.5, col = "black") + 
   geom_jitter(width = 0.1, size = 2, alpha = 0.75) +
   facet_grid(facets = c("Sequencing_strategy","size_fraction"),scales = "free")+
   labs(x="Volume (L)",
@@ -29,7 +27,8 @@ prot_diversity_metadata %>%
   mutate(device = ifelse(device == "membrane", "Membrane", "Sterivex")) %>%
   filter(!is.na(size_fraction),!is.na(Sequencing_strategy),
          effected_volume <= 100) %>% 
-  ggplot(aes(effected_volume,Species_richness,col=device))+
+  ggplot(aes(effected_volume, Species_richness, col = device, label = replica)) +
+  geom_text_repel(size = 2.5, col = "black") + 
   geom_jitter(width = 0.1, size = 3, alpha = 0.75)+
   facet_grid(facets = c("Sequencing_strategy","size_fraction"),scales = "free")+
   labs(x="Volume (L)",
@@ -50,6 +49,7 @@ prok_diversity_metadata %>%
   mutate(device = ifelse(device == "membrane", "Membrane", "Sterivex")) %>%
   filter(!is.na(size_fraction),!is.na(Sequencing_strategy)) %>% 
   ggplot(aes(effected_volume,Species_richness,col=device))+
+#  geom_text_repel(size = 2.5, col = "black") + 
   geom_jitter(width = 0.1, size = 3, alpha = 0.75)+  
   facet_grid(facets = c("Sequencing_strategy","size_fraction"),scales = "free")+
   labs(x="Volume (L)",
@@ -62,14 +62,17 @@ prok_diversity_metadata %>%
         legend.text = element_text(family = "Helvetica"),
         strip.text = element_text(color = "black", size = 12, family = "Helvetica"),
         text = element_text(size = 12, family = "Helvetica"))+
-  scale_color_manual(values = qualitative_colors[c(3,5)])
+  scale_color_manual(values = qualitative_colors[c(3,5)]) + 
+  scale_x_log10() + 
+  scale_y_log10()
 
 # Protists
 # Number of OTU
 prot_diversity_metadata %>% 
   mutate(device = ifelse(device == "membrane", "Membrane", "Sterivex")) %>%
   filter(!is.na(size_fraction),!is.na(Sequencing_strategy)) %>% 
-  ggplot(aes(effected_volume,Species_richness,col=device))+
+  ggplot(aes(effected_volume,Species_richness,col=device, label = replica))+
+  geom_text_repel(size = 2.5, col = "black") + 
   geom_jitter(width = 0.1, size = 3, alpha = 0.75)+
   facet_grid(facets = c("Sequencing_strategy","size_fraction"),scales = "free")+
   labs(x="Volume (L)",
@@ -153,9 +156,10 @@ protist_membrane_vs_sterivex_10L_whole_water %>%
   ggplot(aes(x = device,
              y = Species_richness))+
   geom_boxplot(size = 1)+
-  geom_jitter(aes(col = device), width = 0.1, size = 4, alpha = 0.75)+
+  geom_jitter(aes(col = device, shape = replica), width = 0.1, size = 4, alpha = 0.75)+
   labs(x="Volume (L)",
        y="Number of OTU",
+       shape = "Replica",
        title = "OTUs | Filter type | Protists | 18S and MetaG")+
 facet_wrap(facets = c("Sequencing_strategy"), scale= "free") + 
   theme(panel.grid.minor = element_blank(), 
@@ -232,6 +236,7 @@ prokaryotes_ww_vs_sf_10L_membrane %>%
   geom_jitter(aes(col = size_fraction, shape = replica), width = 0.1, size = 4, alpha = 0.75)+
   labs(x="Volume (L)",
        y="Number of OTU",
+       shape = "Replica",
        title = "OTUs | WW vs size fraction | 10L | Prokaryotes | 16S and MetaG",
        subtitle = get_test_label(prokaryotes_kruskal_test_ww_vs_sf_10L_membrane, type = "text", detailed = TRUE),
        caption = get_pwc_label(prokaryotes_dunn_ww_vs_sf_10L_membrane, type = "expression"))+
@@ -272,9 +277,10 @@ protist_ww_sf_10L_membrane_kruskall_test <-
 protist_ww_sf_10L_membrane %>% 
   ggplot(aes(x = size_fraction, y = Species_richness)) +
   geom_boxplot(size = 1)+
-  geom_jitter(aes(col = size_fraction), width = 0.1, size = 4, alpha = 0.75)+
+  geom_jitter(aes(col = size_fraction, shape = replica), width = 0.1, size = 4, alpha = 0.75)+
   labs(x="Volume (L)",
-       y="Number of OTU",
+       y="Number of OTU", 
+       shape = "Replica",
        title = "OTUs | WW vs size fraction | 10L | Protists | 18S and MetaG") + #,
   facet_wrap(facets = c("Sequencing_strategy"), scale= "free") +
   theme(panel.grid.minor = element_blank(), 
@@ -330,9 +336,10 @@ prokaryotes_size_fractions_100L_membrane %>%
   filter(Sequencing_strategy == "MetaB16SV4V5") %>% 
   ggplot(aes(x = size_fraction, y = Species_richness))+
   geom_boxplot(outlier.shape = "cross", size = 1)+
-  geom_jitter(aes(col = size_fraction), width = 0.1, size = 4, alpha =0.75)+
+  geom_jitter(aes(col = size_fraction, shape = replica), width = 0.1, size = 4, alpha =0.75)+
   labs(x="Volume (L)",
        y="Number of OTU",
+       sahpe = "Replica",
        title = "OTUs | Size fraction | 100L | Prokaryotes | 16S",
        subtitle = get_test_label(prokaryotes_size_fractions_100L_membrane_kruskal_test_16S, type = "text", detailed = TRUE),
        caption = get_pwc_label(prokaryotes_size_fractions_100L_membrane_dunn_test_16S, type = "expression"))+
@@ -372,14 +379,16 @@ prokaryotes_size_fractions_100L_membrane_wilcox_metagenomes <-
 
 prokaryotes_size_fractions_100L_membrane_wilcox_metagenomes$xmin <- 1
 prokaryotes_size_fractions_100L_membrane_wilcox_metagenomes$xmax <- 2
+
 # Plot
 prokaryotes_size_fractions_100L_membrane %>% 
   filter(Sequencing_strategy == "MetaG") %>% 
   ggplot(aes(x = size_fraction, y = Species_richness))+
   geom_boxplot(outlier.shape = "cross", size = 1)+
-  geom_jitter(aes(col = size_fraction), width = 0.1, size = 4, alpha = 0.75)+
+  geom_jitter(aes(col = size_fraction, shape = replica), width = 0.1, size = 4, alpha = 0.75)+
   labs(x="Volume (L)",
        y="Number of OTU",
+       shape = "Replica",
        title = "OTUs | size fractions | Prokaryotes | Metagenome",
        subtitle = get_test_label(prokaryotes_size_fractions_100L_membrane_wilcox_metagenomes, type = "text", detailed = TRUE))+
   stat_pvalue_manual(prokaryotes_size_fractions_100L_membrane_wilcox_metagenomes,
@@ -427,9 +436,10 @@ protist_size_fractions_100L_membrane_dunn <-
 protist_size_fractions_100L_membrane %>% 
   ggplot(aes(x = size_fraction, y = Species_richness)) +
   geom_boxplot(outlier.shape = "cross", size = 1) +
-  geom_jitter(aes(color = size_fraction), width = 0.1, size = 4, alpha = 0.75) +
+  geom_jitter(aes(color = size_fraction, shape = replica), width = 0.1, size = 4, alpha = 0.75) +
   labs(x="Volume (L)",
        y="Number of OTU",
+       sahpe = "Replica",
        title = "OTUs | Size fraction | 100L | Protists | 18S and MetaG") + #,
   facet_wrap(facets = c("Sequencing_strategy"), scale="free") + 
   theme(panel.grid.minor = element_blank(), 
@@ -457,8 +467,10 @@ prok_2.5L_vs_10L_wilcoxon <-
 prok_diversity_metadata %>% 
   filter(device == "sterivex", planned_volume != "1L") %>% 
   ggplot(aes(x = as.factor(effected_volume),
-             y = Species_richness))+
+             y = Species_richness,
+             label = replica))+
   geom_boxplot(outlier.shape = "cross", size = 1)+
+  geom_text_repel(size = 2.5, col = "black") + 
   geom_jitter(aes(col = as.factor(effected_volume)), width = 0.1, size = 4, alpha = 0.75)+
   labs(x="Volume (L)",
        y="Number of OTU",
@@ -482,7 +494,7 @@ prok_diversity_metadata %>%
             max(Species_richness),
             median(Species_richness),
             IQR(Species_richness),
-            n()) %>% View()
+            n())
 
 # Protist 2.5L vs 4*2.5L, sterivex, WW
 protist_2.5_vs_10_st_ww <- 
@@ -492,8 +504,8 @@ protist_2.5_vs_10_st_ww <-
 # Wilcoxon test
 prot_2.5_vs_10_st_ww_wilcox <- 
   protist_2.5_vs_10_st_ww %>% 
-  group_by(Sequencing_strategy) %>% 
-  wilcox_test(Species_richness ~ planned_volume) %>% 
+  group_by(Sequencing_strategy) %>%
+  wilcox_test(Species_richness ~ planned_volume) %>%
   adjust_pvalue(method = "bonferroni") %>% 
   mutate(Test = "Mann-Whitney",
          Taxonomic_group = "Protist")
@@ -502,10 +514,14 @@ protist_2.5_vs_10_st_ww %>%
   group_by(Sequencing_strategy) %>% 
   wilcox_effsize(Species_richness ~ planned_volume)
 
+
+
+
 # OTUs
 protist_2.5_vs_10_st_ww %>% 
-  ggplot(aes(x = as.factor(planned_volume), y = Species_richness))+
+  ggplot(aes(x = as.factor(planned_volume), y = Species_richness, label = replica))+
   geom_boxplot(size = 1)+
+  geom_text_repel(size = 2.5, col = "black") + 
   geom_jitter(aes(col = as.factor(planned_volume)), width = 0.1, size = 4, alpha = 0.75)+
   labs(x="Volume (L)",
        y="Number of OTU",

@@ -81,10 +81,12 @@ prokaryotes_16S_clean_rarefied <-
   t() %>% as.data.frame()
 
 # Rarefied diversity
+## note: added more alternative metrics
 prokaryotic_16S_diversity <- 
   tibble(Sample = samples_of_prokaryotes_16S_to_rarefy$Sample,
          Species_richness = sapply(prokaryotes_16S_clean_rarefied,specnumber),
          Shannon_index = sapply(prokaryotes_16S_clean_rarefied,diversity,index="shannon"),
+         Simpson_index = sapply(prokaryotes_16S_clean_rarefied,diversity,index="simpson"),
          Reads = sapply(prokaryotes_16S_clean_rarefied,sum))
 
 # Sanity check on rarefaction
@@ -166,6 +168,7 @@ prokaryotic_metagenome_diversity <-
   tibble(Sample = samples_of_prokaryotes_metagenomes_to_rarefy$Sample,
          Species_richness = sapply(prokaryotes_metagenome_clean_rarefied,specnumber),
          Shannon_index = sapply(prokaryotes_metagenome_clean_rarefied,diversity,index="shannon"),
+         Simpson_index = sapply(prokaryotes_metagenome_clean_rarefied,diversity,index="simpson"),
          Reads = sapply(prokaryotes_metagenome_clean_rarefied,sum))
 
 # Sanity check on rarefaction
@@ -179,6 +182,7 @@ prokaryotic_metagenome_diversity %>%
 prok_16S_diversity_rarefied_metadata <-
   prokaryotic_16S_diversity %>%
   left_join(metadata, by = c("Sample" = "run_accession"))
+
 # prok, metagenome
 prok_metagenome_diversity_rarefied_metadata <-
   prokaryotic_metagenome_diversity %>%
@@ -276,6 +280,7 @@ protist_18S_diversity <-
   tibble(Sample = samples_of_protists_18S_to_rarefy$Sample,
          Species_richness = sapply(protists_18S_clean_rarefied,specnumber),
          Shannon_index = sapply(protists_18S_clean_rarefied,diversity,index="shannon"),
+         Simpson_index = sapply(protists_18S_clean_rarefied,diversity,index="simpson"),
          Reads = sapply(protists_18S_clean_rarefied,sum))
 
 # Sanity check on rarefaction
@@ -357,6 +362,7 @@ protist_metagenome_diversity <-
   tibble(Sample = samples_of_protists_metagenomes_to_rarefy$Sample,
          Species_richness = sapply(protists_metagenome_clean_rarefied,specnumber),
          Shannon_index = sapply(protists_metagenome_clean_rarefied,diversity,index="shannon"),
+         Simpson_index = sapply(protists_metagenome_clean_rarefied,diversity,index="simpson"),
          Reads = sapply(protists_metagenome_clean_rarefied,sum))
 
 # Sanity check on rarefaction

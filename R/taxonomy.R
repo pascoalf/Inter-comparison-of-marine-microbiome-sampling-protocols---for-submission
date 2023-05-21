@@ -115,7 +115,7 @@ col_tax_plot <- function(x, title){
   x %>% 
     ggplot(aes(x = as.factor(effected_volume), 
                fill = size_fraction, y = Species_richness))+
-    geom_col(position = "dodge")+
+    geom_col(position = position_dodge(preserve = "single"))+
     facet_wrap(~FAKE_rank, scales = "free")+
     scale_fill_manual(values = qualitative_colors[c(1,3,5,7)])+
     labs(fill = "Pore size (\U00B5m):",
@@ -128,8 +128,8 @@ col_tax_plot <- function(x, title){
           legend.position = "top",
           axis.text = element_text(family = "Helvetica"),
           strip.background = element_blank(),
-          strip.text = element_text(color = "black", size = 9, family = "Helvetica"),
-          text = element_text(size = 12, , family = "Helvetica"),
+          strip.text = element_text(color = "black", size = 9),
+          text = element_text(size = 12),
           axis.ticks.x = element_blank())
 }
 
@@ -147,7 +147,8 @@ tidy_prok_16S_clean_rarefied_taxa %>%
 
 ## Alternative
 tidy_prok_16S_clean_rarefied_taxa %>% 
-  filter(!is.na(effected_volume),!is.na(size_fraction),
+  filter(!is.na(effected_volume),
+         !is.na(size_fraction),
          effected_volume <= 100) %>% 
   mutate(FAKE_rank = ifelse(FAKE_rank == "Candidatus Marinimicrobia", 
                             "Candidatus \nMarinimicrobia", FAKE_rank),

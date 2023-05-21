@@ -30,6 +30,10 @@ full_join(prot_wilc_m_vs_st_10L_ww) %>%
 # 2.5L vs 10L
 full_join(prot_2.5_vs_10_st_ww_wilcox)
 
+
+protists_statistical_tests %>% View()
+
+
 ## To export
 #write.csv(sapply(protists_statistical_tests,as.character),"./output/protists_statistical_tests.csv")
 

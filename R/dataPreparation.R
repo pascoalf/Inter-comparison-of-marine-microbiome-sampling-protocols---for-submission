@@ -1,8 +1,9 @@
 # Load necessary packages
 packages <- c("data.table","readxl","tidyr","stringr","RColorBrewer",
               "vegan","ggplot2","ggpubr","gghalves","gridExtra",
-              "patchwork","tibble","rstatix","scales","dplyr")
-lapply(packages,library,character.only=TRUE)
+              "patchwork","tibble","rstatix","scales","dplyr", 
+              "ggrepel")
+lapply(packages, library, character.only = TRUE)
 
 # For reproducibility
 set.seed(123)

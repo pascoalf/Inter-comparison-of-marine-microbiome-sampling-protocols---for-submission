@@ -1,5 +1,5 @@
 # Beta diversity | Volumes and size fractions
-library(RColorBrewer)
+  library(RColorBrewer)
 
 ## Data preparation ##
 # Prokaryotes, 16S
